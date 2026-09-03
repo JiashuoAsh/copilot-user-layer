@@ -1,0 +1,14 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "type": "command",
+        "command": "bash \"$HOME/.copilot/hooks/safety/guard-destructive.sh\"",
+        "windows": "powershell.exe -NoLogo -NoProfile -NonInteractive -ExecutionPolicy Bypass -File \"$env:USERPROFILE\\.copilot\\hooks\\safety\\guard-destructive.ps1\"",
+        "linux": "bash \"$HOME/.copilot/hooks/safety/guard-destructive.sh\"",
+        "osx": "bash \"$HOME/.copilot/hooks/safety/guard-destructive.sh\"",
+        "timeout": 5
+      }
+    ]
+  }
+}

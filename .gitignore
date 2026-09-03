@@ -1,0 +1,66 @@
+# ============================================================
+# Copilot User Layer — directory allowlist
+#
+# Default policy:
+#   Ignore everything in ~/.copilot.
+#
+# Only curated User Layer directories and documentation are
+# synchronized.
+# ============================================================
+
+# Ignore everything.
+*
+
+# Allow directory traversal.
+!*/
+
+# ------------------------------------------------------------
+# Git repository files
+# ------------------------------------------------------------
+
+!.gitignore
+!.gitattributes
+
+# ------------------------------------------------------------
+# User Layer specification
+# ------------------------------------------------------------
+
+!COPILOT_USER_LAYER_SPEC.md
+
+# ------------------------------------------------------------
+# Curated User Layer
+# ------------------------------------------------------------
+
+!agents/**
+!skills/**
+!instructions/**
+!hooks/**
+
+# ------------------------------------------------------------
+# Defense-in-depth: never track common secret material even
+# if it appears inside an otherwise allowed directory.
+# ------------------------------------------------------------
+
+**/.env
+**/.env.*
+**/*.key
+**/*.pem
+**/*.p12
+**/*.pfx
+**/*secret*
+**/*token*
+**/*credential*
+
+# ------------------------------------------------------------
+# Temporary / generated artifacts
+# ------------------------------------------------------------
+
+**/*.log
+**/*.tmp
+**/*.bak
+**/__pycache__/
+**/*.pyc
+
+# OS metadata
+**/.DS_Store
+**/Thumbs.db

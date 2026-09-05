@@ -6,6 +6,8 @@ tools:
   - search
   - web
   - execute
+  - 'context7/*'
+  - 'huggingface/*'
 agents: []
 user-invocable: false
 disable-model-invocation: false
@@ -325,6 +327,41 @@ substantive proposal exists.
 Use `read` and `search` freely for read-only repository and document
 inspection.
 
+Use the following evidence order:
+
+```text
+local repository, dependency files, configs, and existing implementation
+        ↓
+Context7 for unresolved current or version-specific library behavior
+        ↓
+Hugging Face for unresolved Hub model, dataset, Space, or repository facts
+        ↓
+targeted primary-source web verification when still necessary
+```
+
+## Technical Provider Routing
+
+Use Context7 when reproduction depends on current or version-specific library,
+framework, SDK, or API documentation. Match the documentation to the dependency
+version used by the repository whenever possible. Do not use it for behavior
+that can already be established from local code or configuration.
+
+Use Hugging Face when reproduction depends on concrete Hub facts such as:
+
+- model or dataset cards;
+- repository metadata, files, revisions, or configuration;
+- preprocessing and input/output requirements;
+- model weights or dataset availability;
+- Space or Hub-specific integration details.
+
+Treat Hugging Face access as read-only unless the parent agent and user
+explicitly authorize an external mutation. Do not upload, modify, or delete Hub
+resources as part of a reproduction assessment.
+
+If a provider fails or documentation does not resolve an ambiguity, report the
+missing fact and its impact. Do not infer that a dependency, model, dataset, or
+configuration does not exist merely because a lookup failed.
+
 Use `web` only for targeted primary-source verification such as:
 
 - official repository;
@@ -332,6 +369,8 @@ Use `web` only for targeted primary-source verification such as:
 - framework documentation;
 - dependency documentation;
 - official configuration.
+
+Do not use browser automation.
 
 Use `execute` conservatively.
 

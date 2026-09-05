@@ -5,6 +5,9 @@ tools:
   - read
   - search
   - web
+  - 'semanticscholar/*'
+  - 'arxiv/*'
+  - 'zotero/*'
 agents: []
 user-invocable: false
 disable-model-invocation: false
@@ -260,6 +263,40 @@ Use `web` when necessary to verify:
 - official experimental details;
 - comparison protocols;
 - missing primary-source evidence.
+
+## Academic Source Routing
+
+Use academic MCP sources only for targeted evidence verification. Broad
+literature discovery belongs to Literature Scout.
+
+Use Zotero for papers, metadata, notes, attachments, or extracted text already
+present in the user's library. Zotero is strictly read-only for this worker.
+Never create, update, delete, attach, annotate, tag, reorganize, or batch-edit
+Zotero content.
+
+Use Semantic Scholar according to the evidence question:
+
+- exact paper title → match the paper by title;
+- known DOI, arXiv ID, PMID, Corpus ID, or other supported identifier → retrieve
+  the paper by identifier;
+- citation, reference, or related-work claim → inspect the relevant graph data;
+- author identity → use author search only when the input is actually an author.
+
+Do not send a paper title to author search.
+
+Use arXiv to verify preprint identity, abstract, version history, or bounded
+paper content. Start with metadata and abstract-level evidence. Retrieve full
+text or source only when the audit cannot be completed without it.
+
+Distinguish arXiv submission or revision dates from conference or journal
+publication dates and from local Zotero metadata. When important sources
+disagree, identify the conflicting field and preserve unresolved uncertainty.
+
+A failed query, rate limit, unavailable provider, or missing identifier is not
+negative evidence. Correct a clear routing error once, use another authoritative
+source only when it materially affects the audit, and report the remaining gap.
+
+Do not use browser automation.
 
 Do not turn a focused evidence audit into open-ended literature discovery.
 

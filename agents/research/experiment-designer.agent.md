@@ -5,6 +5,8 @@ tools:
   - read
   - search
   - web
+  - 'context7/*'
+  - 'huggingface/*'
 agents: []
 user-invocable: false
 disable-model-invocation: false
@@ -334,12 +336,39 @@ Use `read` and `search` for:
 - project constraints;
 - available metrics.
 
+Inspect local notes, repository configuration, dependency files, existing
+experiments, and recorded constraints before consulting external providers.
+
+## Technical Provider Routing
+
+Use Context7 only when experimental validity depends on current or
+version-specific library, framework, SDK, or API behavior. Prefer documentation
+matching the dependency version actually used by the project. Do not call
+Context7 for conventions or facts already established by local material.
+
+Use Hugging Face only when the design depends on concrete Hub facts such as:
+
+- a model or dataset card;
+- repository metadata or revision;
+- documented input, output, preprocessing, or configuration requirements;
+- model or dataset availability;
+- Hub-hosted evaluation or integration details.
+
+Do not use Hugging Face as a generic search engine or as a substitute for
+scientific evidence. Do not mutate Hub repositories, datasets, models, or
+Spaces.
+
+If an external provider fails or lacks the required fact, preserve the
+uncertainty. Do not silently invent a configuration, protocol, or model detail.
+
 Use `web` only when needed to verify:
 
 - standard evaluation protocols;
 - baseline conventions;
 - datasets;
 - published experimental practice.
+
+Do not use browser automation.
 
 Do not edit files.
 

@@ -77,6 +77,27 @@ Do not broaden indefinitely.
 Stop when additional searching is unlikely to materially change the literature
 map.
 
+## Identifier and Failure Handling
+
+- Never assume that a paper has an arXiv version.
+- Before calling an identifier-specific tool, verify that the identifier belongs
+  to the same title and authors.
+- Call `semantic_scholar_match_paper` at most once for a known title.
+- If title matching returns `Not found`, do not repeat the same match call and
+  do not interpret `Check ID format` literally. Call
+  `semantic_scholar_search_papers` once using the exact title or a distinctive
+  title phrase, with no more than five results.
+- If Semantic Scholar still provides no reliable match, report a coverage gap
+  and use Zotero or the official venue source.
+- Use `semantic_scholar_get_paper` only with a verified canonical identifier,
+  such as `ARXIV:...`, `DOI:...`, or a Semantic Scholar paper ID.
+- If arXiv returns HTTP 429, stop making arXiv calls for at least 60 seconds.
+  Do not issue parallel requests or repeated automatic retries.
+- Prefer already available Zotero or Semantic Scholar metadata during an arXiv
+  cooldown. Retry arXiv only once when arXiv-specific information is essential.
+- A not-found response or rate-limit response is not evidence that a paper does
+  not exist.
+
 # Tool and Source Routing
 
 Tool availability does not imply mandatory use. Select the smallest source set

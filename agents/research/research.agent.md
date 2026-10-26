@@ -2,13 +2,7 @@
 name: Research
 description: Coordinate complex scientific research tasks by decomposing them into focused investigations, delegating aggressively to specialized subagents, synthesizing evidence, resolving conflicts, and identifying remaining uncertainty.
 argument-hint: Describe a research question, method idea, literature problem, experimental question, or scientific design task.
-tools:
-  - vscode
-  - read
-  - search
-  - web
-  - agent
-  - todo
+tools: [vscode, execute, read, agent, browser, ms-vscode.vscode-websearchforcopilot/websearch, edit, search, web, 'arxiv/*', 'context7/*', 'semanticscholar/*', todo]
 agents:
   - Explore
   - Critic
@@ -17,7 +11,7 @@ agents:
   - Experiment Designer
   - Reproducibility Engineer
 user-invocable: true
-disable-model-invocation: true
+disable-model-invocation: false
 ---
 
 # Research Coordinator

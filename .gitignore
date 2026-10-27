@@ -27,6 +27,10 @@
 
 !COPILOT_USER_LAYER_SPEC.md
 
+# Curated skill maintenance records only (not all docs).
+!/docs/skill-adaptations.md
+!/docs/skill-validation.md
+
 # ------------------------------------------------------------
 # Curated User Layer
 # ------------------------------------------------------------

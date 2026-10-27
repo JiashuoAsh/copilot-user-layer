@@ -92,7 +92,7 @@ Use:
 - Experiment Designer when implementation requires discriminating scientific validation.
 - Literature Scout only for explicit or genuinely necessary scientific literature discovery.
 - `verification-before-completion` before claiming engineering work is complete.
-- Native Code Review for implementation/diff review.
+- `code-review` provides a reusable read-only Standards/Spec review method; Native Code Review is the available review capability when appropriate. Neither replaces the other's distinct method/capability role.
 
 Do not route ordinary engineering tasks through the Research Coordinator.
 Do not invoke every available worker merely because it exists.

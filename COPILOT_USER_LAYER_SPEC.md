@@ -1,10 +1,12 @@
 # Copilot User Layer Specification
 
-> **Status:** Operational v1.1 — Architecture Frozen, Capability Baseline Updated  
-> **Architecture baseline:** v1.0  
-> **Operational revision:** v1.1  
-> **Last updated:** 2026-09-05  
-> **Primary environment:** VS Code Copilot Agent  
+> **Status:** Operational v1.2 — Architecture Frozen, Capability and Skill Baselines Updated
+> **Architecture baseline:** v1.0
+> **Operational revision:** v1.2
+> **Last updated:** 2026-10-27
+> **Primary environment:** VS Code Copilot Agent
+
+Skill delivery revision: local adaptation v2 (2026-10-27); source and static-validation records live in `docs/skill-adaptations.md` and `docs/skill-validation.md`.
 
 ## 0. Executive Contract
 
@@ -240,6 +242,13 @@ Grouped roots are registered explicitly through `chat.agentFilesLocations`; impl
 | `verification-before-completion` | Completion evidence gate | Core; accepted |
 | `paper-reading` | Deep analysis of a concrete paper | Core; integration verified |
 | `grill-me` | Intensive questioning and decision pressure-testing | Retained; manual-only |
+| `to-tickets` | Turn settled plans into dependency-aware, verifiable work items | Added; user- and model-invocable |
+| `code-review` | Read-only review on separate Standards and Spec axes | Added; complements Native Code Review |
+| `writing-for-agents` | Write and maintain agent-consumed documents | Added; user- and model-invocable |
+| `handoff` | Prepare a verified state packet for an explicit handoff | Added; user- and model-invocable |
+| `retro` | Evidence-based review of repeated workflow failures and waste | Added; user- and model-invocable |
+| `prototype` | Answer a concrete UI, logic, or feasibility question with a small prototype | Added; user- and model-invocable |
+| `wayfinder` | Map interdependent unresolved decisions across sessions | Added; user- and model-invocable |
 | `paper-reviewer` | Structured paper review | Installed auxiliary capability |
 | `scifig-scientific-figure` | Scientific-figure workflow | Installed auxiliary capability |
 | `find-skills` | Skill discovery support | Installed auxiliary capability |
@@ -276,6 +285,7 @@ This is not a mandatory full pipeline. Simple work may compress to inspect → e
 | Situation | Route |
 |---|---|
 | Simple implementation | Native Agent |
+| Settled plan needs dependency-aware, verifiable work items | `to-tickets` |
 | Repository structure, symbols, call sites, or state flow | Explore |
 | Unexplained bug, test, build, runtime, or regression failure | `systematic-debugging` |
 | Substantive plan, diagnosis, or design needs independent challenge | Critic |
@@ -285,7 +295,12 @@ This is not a mandatory full pipeline. Simple work may compress to inspect → e
 | Need a discriminating scientific validation plan | Experiment Designer |
 | Scientific literature is genuinely necessary | Literature Scout |
 | Completion is about to be claimed | `verification-before-completion` |
-| Existing implementation or diff needs review | Native Code Review |
+| Existing implementation or diff needs review | `code-review` method; Native Code Review is the available review capability when appropriate |
+| Explicit handoff to another session or person | `handoff` |
+| Evidence shows repeated agent mistakes, substantial rework, or costly tool waste | `retro` |
+| A concrete UI, logic, or technical-feasibility question benefits from a throwaway artifact | `prototype` |
+| Interdependent unresolved decisions obscure a large effort's route across sessions | `wayfinder` |
+| Agent-consumed guidance or customization files need writing or maintenance | `writing-for-agents` |
 | Broad scientific synthesis is the primary task | User explicitly selects Research |
 
 Do not route ordinary engineering work through the Research Coordinator.
@@ -482,7 +497,25 @@ Use for deep analysis of one concrete paper or a small explicitly named set. It 
 
 Retain as a manual-only intensive questioning workflow. It should not auto-trigger during ordinary work.
 
-## 7.5 Auxiliary Skills
+## 7.5 Adapted Engineering and Workflow Skills
+
+All seven adapted Skills provide both a user slash entry and model discovery. Discovery does not grant extra file-writing, execution, tracker, commit, or push authority; those actions follow the current task and mode. Their descriptions are the discovery surface; the entries below document responsibilities rather than mandate a full workflow.
+
+| Skill | Method and boundary | Resources |
+|---|---|---|
+| `to-tickets` | Convert a settled plan into independently verifiable vertical slices with real, acyclic blockers; unresolved designs stay pending. Large mechanical changes may use expand–migrate–contract. | Per-ticket template; default output is chat, with one file per ticket only when saving is authorized |
+| `code-review` | Read-only Standards/Spec review, including logic, regressions, exceptional paths, and data integrity. Covers relevant working changes; unclear baselines are clarified, not guessed. | Review criteria; Native Code Review is an available review capability, while Critic challenges reasoning |
+| `writing-for-agents` | Author discoverable, progressively disclosed guidance with clear completion criteria and one source of truth. Use the current host's actual discovery rules. | Copilot skill-mechanics reference; does not take over unrelated engineering |
+| `handoff` | Prepare current state, decision links, change status, matching validation evidence, blockers, and a next action for a real handoff. Does not end work solely because context is long. | Handoff template; no routine document at every task end |
+| `retro` | Investigate evidence of repeated mistakes, substantial rework, or costly tool waste; prefer a few justified improvements at the responsible layer. | Default is advice, not automatic global-policy changes; a one-off failure is insufficient |
+| `prototype` | Answer one concrete UI, logic, or technical-feasibility question with the smallest useful artifact and honestly scoped observations. | Three branch references; isolate production state and prototype-only UI, use tests/measurements when the question requires them |
+| `wayfinder` | Maintain a destination, decided index, precise open questions and dependencies, unspecified questions, and exclusions when unresolved decisions obscure the route across sessions. | Map and decision templates; settled large implementation belongs in `to-tickets`, not a decision map |
+
+Each package keeps its own `SOURCE.md` and MIT `LICENSE`. Source details and adaptation versions belong in those per-package records; shared update and rollback policy is indexed in `docs/skill-adaptations.md`. No project artifacts are pre-created by installing templates.
+
+For the 2026-10-27 delivery, the user explicitly waived slash-menu, automatic-trigger, and positive/negative runtime behavior tests. These are recorded as skipped, not passed, and are not release blockers for this delivery. Static structure, references, source, license, and difference checks remain in scope; discovery metadata has already appeared in the current Copilot skill list.
+
+## 7.6 Auxiliary Skills
 
 `paper-reviewer`, `scifig-scientific-figure`, and `find-skills` extend the environment without changing the core architecture. Their presence does not require coordinators to invoke them automatically.
 
@@ -843,6 +876,21 @@ The User Layer v1.1 operational specification is accepted when:
 ---
 
 # 16. Change Log
+
+## v1.2 — 2026-10-27
+
+Delivery supplement (local adaptation v2):
+
+- Added five missing templates/criteria and their entrypoint pointers, plus per-package `SOURCE.md` records.
+- Completed §7 responsibilities and retained only the necessary review-method distinction in global engineering routing.
+- Added exact Git ignore exceptions for the two curated maintenance records; other runtime/docs files remain subject to the existing allowlist.
+- Recorded the user's runtime-test waiver separately from static validation and product discovery evidence.
+
+- Added seven adapted personal Skills for ticket breakdown, two-axis code review, agent-document authoring, explicit handoff, evidence-based retrospective, scoped prototyping, and decision wayfinding.
+- Kept architecture ownership unchanged: Native Agent owns engineering; `code-review` supplies a review method and Native Code Review remains an available execution capability.
+- Enabled both user invocation and model discovery for the seven Skills, with narrow descriptions and task-level authorization boundaries.
+- Recorded the fixed upstream source, per-skill MIT licenses, adaptation notes, static checks, independent review, and pending new-session behavior validation.
+- Updated engineering routing guidance without adding agents, MCP servers, Hooks, or a general-purpose engineering coordinator.
 
 ## v1.1 — 2026-09-05
 

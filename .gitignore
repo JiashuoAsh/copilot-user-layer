@@ -40,6 +40,9 @@
 !instructions/**
 !hooks/**
 
+# Shared research methods (keep later secret exclusions in force).
+!/research-guides/**/*.md
+
 # ------------------------------------------------------------
 # Defense-in-depth: never track common secret material even
 # if it appears inside an otherwise allowed directory.

@@ -1,8 +1,8 @@
 ---
 name: "research-explore"
 description: "从初步研究方向或现象出发，先调查文献，再通过分批追问逐步形成研究构想。协调切入点、科学问题、研究假设和技术路线，维护当前项目的研究记录。"
-tools: ["vscode", "read", "search", "edit", "web", "semanticscholar/*", "arxiv/*", "zotero/*"]
-agents: []
+tools: [vscode, execute, read, agent, ms-azuretools.vscode-containers/containerToolsConfig, ms-python.python/getPythonEnvironmentInfo, ms-python.python/getPythonExecutableCommand, ms-python.python/installPythonPackage, ms-python.python/configurePythonEnvironment, ms-toolsai.jupyter/configureNotebook, ms-toolsai.jupyter/listNotebookPackages, ms-toolsai.jupyter/installNotebookPackages, ms-vscode.vscode-websearchforcopilot/websearch, edit, search, web, 'arxiv/*', 'context7/*', 'huggingface/*', 'semanticscholar/*', 'zotero/*', browser, 'gitkraken/*', 'pylance-mcp-server/*', todo]
+agents: ['*']
 user-invocable: true
 disable-model-invocation: true
 ---

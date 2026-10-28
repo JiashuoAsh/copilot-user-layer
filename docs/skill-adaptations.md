@@ -2,7 +2,7 @@
 
 - 上游仓库：<https://github.com/mattpocock/skills>
 - 固定来源版本：`59db609eb1e18aaf59b63284d0e52255aff0c63c`
-- 各包版本与来源的主记录位于各自 `SOURCE.md`；当前均为本地适配版本 2，保留 MIT 许可与每项技能的原始版权声明。
+- 各包版本与来源的主记录位于各自 `SOURCE.md`；`handoff` 当前为本地适配版本 3，其余为版本 2，保留 MIT 许可与每项技能的原始版权声明。
 - 原始源码缓存：`C:\Users\Ash\.cache\skill-sources\mattpocock-skills\`
 - 适配 staging：`C:\Users\Ash\.cache\skill-adaptations\mattpocock-skills\59db609eb1e18aaf59b63284d0e52255aff0c63c\`
 
@@ -11,7 +11,7 @@
 | `to-tickets` | `skills/engineering/to-tickets` | 纵向可验证切片、真实阻塞边、广域机械变更 expand–migrate–contract；tracker 仅在已配置且获授权时操作 |
 | `code-review` | `skills/engineering/code-review` | Standards/Spec 双轴；包含相关工作区改动；基线不明先询问；无规格仍审查可确认范围；不依赖特定 tracker、Skill API 或必定可用的并行审查 |
 | `writing-for-agents` | `skills/productivity/writing-for-agents` | 保留上下文指针、渐进披露、完成标准和单一事实来源；按本机 Copilot 文档解释调用字段 |
-| `handoff` | `skills/productivity/handoff` | 明确需要交接时使用；默认聊天输出；避免因上下文长度中断当前工作；写文件遵循项目布局及授权 |
+| `handoff` | `skills/productivity/handoff` | 仅用户显式调用，保留 slash 入口并禁用模型调用；默认聊天输出；避免因上下文长度中断当前工作；写文件遵循项目布局及授权 |
 | `retro` | `skills/engineering/retro` | 证据驱动且默认只建议；检查已有检查；不从偶发失误泛化全局规则 |
 | `prototype` | `skills/engineering/prototype` | UI/逻辑/可行性三分支；是否测试由验证主张决定；不自动提交或推广到生产 |
 | `wayfinder` | `skills/engineering/wayfinder` | 多个互相依赖的未决决策用本地 Markdown 地图；不要求 tracker、标签、认领、推送或未知 Skill API |

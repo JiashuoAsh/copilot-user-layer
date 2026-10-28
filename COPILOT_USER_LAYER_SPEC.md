@@ -3,7 +3,7 @@
 > **Status:** Operational v1.2 — Architecture Frozen, Capability and Skill Baselines Updated
 > **Architecture baseline:** v1.0
 > **Operational revision:** v1.2
-> **Last updated:** 2026-10-27
+> **Last updated:** 2026-10-28
 > **Primary environment:** VS Code Copilot Agent
 
 Skill delivery revision: local adaptation v2 (2026-10-27); source and static-validation records live in `docs/skill-adaptations.md` and `docs/skill-validation.md`.
@@ -245,7 +245,7 @@ Grouped roots are registered explicitly through `chat.agentFilesLocations`; impl
 | `to-tickets` | Turn settled plans into dependency-aware, verifiable work items | Added; user- and model-invocable |
 | `code-review` | Read-only review on separate Standards and Spec axes | Added; complements Native Code Review |
 | `writing-for-agents` | Write and maintain agent-consumed documents | Added; user- and model-invocable |
-| `handoff` | Prepare a verified state packet for an explicit handoff | Added; user- and model-invocable |
+| `handoff` | Prepare a verified state packet for a user-invoked handoff | Retained; manual-only |
 | `retro` | Evidence-based review of repeated workflow failures and waste | Added; user- and model-invocable |
 | `prototype` | Answer a concrete UI, logic, or feasibility question with a small prototype | Added; user- and model-invocable |
 | `wayfinder` | Map interdependent unresolved decisions across sessions | Added; user- and model-invocable |
@@ -296,7 +296,7 @@ This is not a mandatory full pipeline. Simple work may compress to inspect → e
 | Scientific literature is genuinely necessary | Literature Scout |
 | Completion is about to be claimed | `verification-before-completion` |
 | Existing implementation or diff needs review | `code-review` method; Native Code Review is the available review capability when appropriate |
-| Explicit handoff to another session or person | `handoff` |
+| User explicitly invokes the handoff Skill | `handoff` (manual-only) |
 | Evidence shows repeated agent mistakes, substantial rework, or costly tool waste | `retro` |
 | A concrete UI, logic, or technical-feasibility question benefits from a throwaway artifact | `prototype` |
 | Interdependent unresolved decisions obscure a large effort's route across sessions | `wayfinder` |
@@ -499,14 +499,14 @@ Retain as a manual-only intensive questioning workflow. It should not auto-trigg
 
 ## 7.5 Adapted Engineering and Workflow Skills
 
-All seven adapted Skills provide both a user slash entry and model discovery. Discovery does not grant extra file-writing, execution, tracker, commit, or push authority; those actions follow the current task and mode. Their descriptions are the discovery surface; the entries below document responsibilities rather than mandate a full workflow.
+All seven adapted Skills provide a user slash entry. `handoff` is manual-only; the other six also allow model discovery. Discovery does not grant extra file-writing, execution, tracker, commit, or push authority; those actions follow the current task and mode. Descriptions are the discovery surface for model-invocable Skills; the entries below document responsibilities rather than mandate a full workflow.
 
 | Skill | Method and boundary | Resources |
 |---|---|---|
 | `to-tickets` | Convert a settled plan into independently verifiable vertical slices with real, acyclic blockers; unresolved designs stay pending. Large mechanical changes may use expand–migrate–contract. | Per-ticket template; default output is chat, with one file per ticket only when saving is authorized |
 | `code-review` | Read-only Standards/Spec review, including logic, regressions, exceptional paths, and data integrity. Covers relevant working changes; unclear baselines are clarified, not guessed. | Review criteria; Native Code Review is an available review capability, while Critic challenges reasoning |
 | `writing-for-agents` | Author discoverable, progressively disclosed guidance with clear completion criteria and one source of truth. Use the current host's actual discovery rules. | Copilot skill-mechanics reference; does not take over unrelated engineering |
-| `handoff` | Prepare current state, decision links, change status, matching validation evidence, blockers, and a next action for a real handoff. Does not end work solely because context is long. | Handoff template; no routine document at every task end |
+| `handoff` | Only when the user explicitly invokes the Skill, prepare current state, decision links, change status, matching validation evidence, blockers, and a next action. Delegation needs or context length do not trigger it. | Handoff template; manual-only, with no routine document at every task end |
 | `retro` | Investigate evidence of repeated mistakes, substantial rework, or costly tool waste; prefer a few justified improvements at the responsible layer. | Default is advice, not automatic global-policy changes; a one-off failure is insufficient |
 | `prototype` | Answer one concrete UI, logic, or technical-feasibility question with the smallest useful artifact and honestly scoped observations. | Three branch references; isolate production state and prototype-only UI, use tests/measurements when the question requires them |
 | `wayfinder` | Maintain a destination, decided index, precise open questions and dependencies, unspecified questions, and exclusions when unresolved decisions obscure the route across sessions. | Map and decision templates; settled large implementation belongs in `to-tickets`, not a decision map |
@@ -876,6 +876,11 @@ The User Layer v1.1 operational specification is accepted when:
 ---
 
 # 16. Change Log
+
+## 2026-10-28 — Handoff Invocation Policy
+
+- Made `handoff` manual-only: retained the user slash entry and disabled model invocation.
+- Restricted its description and body to explicit user invocation; delegation needs no longer trigger the Skill.
 
 ## v1.2 — 2026-10-27
 

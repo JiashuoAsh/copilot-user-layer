@@ -1,14 +1,14 @@
 ---
 name: handoff
-description: "Use when the user asks to hand work to another session or person, or an authorized delegation needs a compact state packet. Capture verified state, decisions, changed files, evidence, blockers, and next action without duplicating existing artifacts."
+description: "Use only when the user explicitly invokes handoff to hand work to another session or person. Capture verified state, decisions, changed files, evidence, blockers, and next action without duplicating existing artifacts."
 argument-hint: "接手者要完成什么？"
 user-invocable: true
-disable-model-invocation: false
+disable-model-invocation: true
 ---
 
 # 工作交接
 
-仅在明确需要交接时生成交接包：例如用户要换会话/执行者，或已授权的委派需要可接续状态。不因上下文变长自行中断当前任务，也不在普通任务结束时例行生成。
+仅在用户通过 `/handoff` 或明确点名调用本技能时生成交接包。Agent 不得因委派需要、上下文变长或普通任务结束自行调用，也不得因此中断当前任务。
 
 ## 交接步骤
 

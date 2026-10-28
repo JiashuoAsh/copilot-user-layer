@@ -8,6 +8,8 @@
 
 Skill delivery revision: local adaptation v2 (2026-10-27); source and static-validation records live in `docs/skill-adaptations.md` and `docs/skill-validation.md`.
 
+User-authorized research-exploration extension (2026-10-28): see §17. This focused interactive entry does not replace the existing Research Coordinator or worker topology.
+
 ## 0. Executive Contract
 
 This document is the single source of truth for the user's personal Copilot Agent environment.
@@ -229,7 +231,8 @@ agents/
     ├── literature-scout.agent.md
     ├── evidence-auditor.agent.md
     ├── experiment-designer.agent.md
-    └── reproducibility-engineer.agent.md
+    ├── reproducibility-engineer.agent.md
+    └── research-explore.agent.md
 ```
 
 Grouped roots are registered explicitly through `chat.agentFilesLocations`; implicit recursive discovery is not assumed.
@@ -242,6 +245,10 @@ Grouped roots are registered explicitly through `chat.agentFilesLocations`; impl
 | `verification-before-completion` | Completion evidence gate | Core; accepted |
 | `paper-reading` | Deep analysis of a concrete paper | Core; integration verified |
 | `grill-me` | Intensive questioning and decision pressure-testing | Retained; manual-only |
+| `research-entry` | Literature-grounded exploration of concrete research entry points | Added; user- and model-invocable |
+| `research-question` | Form and check answerable scientific questions | Added; user- and model-invocable |
+| `research-hypothesis` | Candidate explanations, predictions, alternatives, and refutation | Added; user- and model-invocable |
+| `research-design` | Evidence routes for a discussable research concept | Added; user- and model-invocable |
 | `to-tickets` | Turn settled plans into dependency-aware, verifiable work items | Added; user- and model-invocable |
 | `code-review` | Read-only review on separate Standards and Spec axes | Added; complements Native Code Review |
 | `writing-for-agents` | Write and maintain agent-consumed documents | Added; user- and model-invocable |
@@ -938,3 +945,33 @@ Delivery supplement (local adaptation v2):
 
 - Established the initial User Layer architecture and research worker design.
 
+
+---
+
+# 17. Research Exploration Extension — 2026-10-28
+
+## Authority and ownership
+
+The user explicitly selected and authorized a personal, cross-project research-exploration setup after a staged requirements interview. This is a scoped extension to the frozen baseline: `research-explore` is a manually selected interactive role for forming research concepts, not a replacement Research Coordinator or a new general-purpose research worker. Existing engineering ownership, scientific-synthesis delegation, worker definitions, and settings are preserved. Do not automatically nest the two user-selected research roles.
+
+## Installed components
+
+- `agents/research/research-explore.agent.md`: uses the already registered research agent root; user-invocable, model invocation disabled, no child agents, inherits the selected model. Reads and applies stage methods in the same conversation.
+- `skills/research-entry/SKILL.md`, `skills/research-question/SKILL.md`, `skills/research-hypothesis/SKILL.md`, `skills/research-design/SKILL.md`: independently user-invocable and available for relevant model selection. A standalone request only fills necessary upstream gaps.
+- `research-guides/concepts.md`, `literature-rules.md`, `interaction-rules.md`, `project-records.md`, and `domains/cmtta.md`: explicit file dependencies; ordinary shared Markdown, not an automatically loaded knowledge system. The Git allowlist admits only Markdown in this folder and keeps later secret exclusions active.
+
+## Agreed behavior and boundaries
+
+Each new research request starts with targeted literature investigation, then a concise evidence report and normally two or three independent questions. Wait for the user's batch response before dependent progression. Follow-up turns in the same investigation reuse valid evidence and search for new gaps. Exploration may revisit stages; the four concepts are not a forced one-way pipeline.
+
+The default deliverable is a discussable research concept: entry point, scientific question, hypotheses when appropriate, an initial evidence route, sources, and unresolved issues. Exploratory work may have no predefined hypothesis. Missing evidence or a rejected direction is a valid outcome. Research implementation and full project scheduling require a separate user request.
+
+After each converged batch, update existing project research records in place; absent a project convention, use `research/brief.md` and `research/evidence.md` when substantive content exists. Preserve decision status separately from evidence status. Changes upstream mark dependent items for review. New sessions resume from the project record. Automatic skill relevance alone is not permission for unrelated writes; honor discussion-only and read-only requests.
+
+CMTTA is the user's audio-video / multi-modal continual TTA domain. Its guide provides conditional protocol questions, not a universal protocol or a preclaimed research gap. Other research domains use their own evidence and project rules. Project-specific findings never become personal global facts automatically.
+
+## Capability and validation boundary
+
+The new role exposes reading, search, web, editing, and the already configured scholarly provider namespaces. Zotero and scholarly-provider access remain semantically read-only. No new MCP servers, model choices, approvals, VS Code settings, Hooks, or worker edits are part of this extension.
+
+Deployment verifies the exact files, Copilot-specific frontmatter, references, and installed checksums. Independent content review can assess the instructions; neither that nor static checks alone proves VS Code/Copilot discovery or end-to-end research behavior. Product runtime status must be reported separately from deployment success.

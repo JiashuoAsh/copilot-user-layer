@@ -1,14 +1,27 @@
 # Copilot User Layer Specification
 
-> **Status:** Operational v1.2 — Architecture Frozen, Capability and Skill Baselines Updated
-> **Architecture baseline:** v1.0
-> **Operational revision:** v1.2
-> **Last updated:** 2026-10-28
+> **Status:** v2.1 — Two-mode research orchestration configured; validation scope recorded separately
+> **Architecture baseline:** v2.1 for intertwined research; native-first engineering retained
+> **Operational revision:** v2.1
+> **Last updated:** 2026-11-03
 > **Primary environment:** VS Code Copilot Agent
 
 Skill delivery revision: local adaptation v2 (2026-10-27); source and static-validation records live in `docs/skill-adaptations.md` and `docs/skill-validation.md`.
 
-User-authorized research-exploration extension (2026-10-28): see §17. This focused interactive entry does not replace the existing Research Coordinator or worker topology.
+User-authorized research-exploration extension (2026-10-28): see §17. This focused interactive entry does not replace Research Investigate or the two orchestration modes.
+
+Approved R2 proposal-delivery and topic-record revision (2026-11-03): guides, entrypoints, workstream contracts, stage Skills and templates are deployed; current rules are summarized in §6.9 and §18. Static contracts and independent content review passed within the [recorded scope](docs/research-orchestration-validation.md#2026-11-03-研究方案与课题记录部署); live user-entry behavior remains unverified. Historical snapshots retain their original scope.
+
+## Current agent-name and path migration
+
+| Historical name | Current name | Current path |
+|---|---|---|
+| Research Orchestrator | Research Run | `agents/research/entry/research-orchestrator.agent.md` |
+| Autonomous Research Orchestrator | Research Auto | `agents/research/entry/autonomous-research-orchestrator.agent.md` |
+| Research Investigation Coordinator | Research Investigate | `agents/research/entry/research.agent.md` |
+| Research Ideation Partner | Research Explore | `agents/research/entry/research-explore.agent.md` |
+
+This migration changes names, locations and registration paths only; permissions, behavior, models and the call graph are unchanged. Historical snapshots, citations and acceptance evidence retain historical names, while navigation links target current paths. The registration scheme documents the current VS Code host and is not extrapolated to a CLI registry.
 
 ## 0. Executive Contract
 
@@ -17,11 +30,11 @@ This document is the single source of truth for the user's personal Copilot Agen
 The system supports two top-level work modes:
 
 1. **Engineering**, owned by the native Copilot Agent;
-2. **Scientific research**, owned by the custom Research Coordinator.
+2. **Scientific research**, owned by the user-selected `Research Run` or `Research Auto`.
 
 The architecture is intentionally small. Native capabilities remain the default; custom agents, Skills, and MCP servers are added only when they fill a concrete recurring gap.
 
-The v1 role architecture is frozen. The capability layer is not permanently frozen: tools and MCP integrations may evolve when real work demonstrates a need, without redesigning agent ownership.
+The user authorized a two-mode research orchestration architecture for their primary intertwined literature–method–implementation–experiment workload. It supersedes the earlier unapproved v2 candidate and preserves the existing investigation and ideation responsibilities; see §18 and `research-guides/orchestration.md`. Ordinary engineering remains native-first. Capability additions still require a concrete need.
 
 The governing maintenance rule is:
 
@@ -121,13 +134,13 @@ Tool availability is not routing policy. A role may be technically able to call 
 
 | Work type | Owner | Rule |
 |---|---|---|
-| Software implementation and repository work | Native Agent | Direct-first; delegates selectively |
-| Broad scientific synthesis | Research Coordinator | Aggressive but bounded worker delegation |
+| Ordinary software implementation and repository work | Native Agent | Direct-first; delegates selectively |
+| Scientific synthesis and authorized intertwined research delivery | `Research Run` or `Research Auto` | Workstream ownership, bounded delegation, project-state integration and final acceptance |
 | Repository exploration | Native Explore | Concrete code facts, symbols, call sites, state flow |
 | Implementation/diff review | Native Code Review | Reviews code changes, not general reasoning |
 | Independent reasoning challenge | Critic | Reviews plans, diagnoses, designs, and validation gaps |
 
-Top-level coordinators are not nested by default. Engineering owns implementation; Research owns scientific synthesis. Both may directly consult shared specialist workers.
+Top-level coordinators are not nested. Either orchestration mode may delegate to Research Investigate, Implementation Lead and Experiment Lead, who delegate only to allowed experts/executors. Implementation Lead owns code delivery inside an authorized research effort; Native Agent owns ordinary engineering. Shared specialists remain directly usable for focused tasks. Research Explore remains user-started only.
 
 ---
 
@@ -166,26 +179,25 @@ Use a Skill for a reusable method. Use a subagent when independent context, a di
 
 Workers should absorb large exploratory traces and return compact, structured findings. The parent should receive evidence, conclusions, conflicts, and uncertainty—not an unfiltered activity log.
 
-## P5. Research Uses Orchestrator–Worker Design
+## P5. Research Uses Bounded Hierarchical Ownership
 
-Research is coordinated through a lead that decomposes, delegates, synthesizes, detects conflicts, and decides whether a second investigation wave is justified.
+The user-selected Research Run or Research Auto owns the full objective; workstream leads organize implementation and experiment delivery; Research Investigate owns scientific investigation and synthesis; experts/executors return scoped evidence. Simple questions may bypass leads. The collaboration protocol is the single source for task contracts, versions, write ownership and budgets.
 
 ## P6. Delegation Is Aggressive but Bounded
 
-Default research guardrails:
-
-- first wave: up to roughly four independent worker tasks;
-- second wave: only for an evidence gap, conflict, implementation ambiguity, or critical unverified assumption;
-- duplicate-role calls: only for independent search tracks, replication, or competing hypotheses;
-- Critic: normally after a substantive proposal or synthesis exists.
+Default research guardrails: six child calls per round, including leads, nested workers, failures and retries; non-overlapping branch allocations; ready independent work may run in parallel. For batch mode, further rounds require a specific gap, failure, conflict or unlocked dependency. Research Auto inherits topic-scoped default authority (§18), treats the per-round limit as internal fan-out control and continues until the user requests a check/stop, an explicit limit or actual host/resource boundary is reached, research integrity or protection of existing data/processes prevents an action, the task would leave the topic's scope, or no nonrepeating research path remains. Method, candidate-hypothesis and necessary protocol revisions within that scope do not require renewed user approval. Leads never invoke peers, themselves or Research. Critic reviews substantive targets selectively. These are instruction-level bounds, not runtime accounting enforcement.
 
 ## P7. Reflection Is Selective
 
 Critic is high value when a concrete plan, diagnosis, design, or synthesis exists. It is not a ritual step for every simple task and not a first-wave discovery worker.
 
-## P8. No Maintained Multi-Agent Debate
+## P8. Bounded Debate Moderator
 
-Position-based debate is excluded from v1. Specialized workers, evidence-based synthesis, and Critic already provide useful independent perspectives without encouraging artificial disagreement.
+`Debate Moderator` is an independent, default-off worker for one important
+evidence-based dispute. It starts only when the four conditions in the
+collaboration plan and Research Investigate instructions are all satisfied.
+It does not impose pro/con roles, majority voting, consensus, source edits or
+experiment launches. A debate workflow is not required for ordinary tasks.
 
 ## P9. Keep the System Explainable
 
@@ -218,7 +230,12 @@ A failed query, rate limit, missing identifier, or unavailable API is not eviden
 | File | Role | Status |
 |---|---|---:|
 | `instructions/engineering.instructions.md` | Cross-project engineering behavior and tool routing | Active; frontmatter validated |
+| `instructions/judgment-and-communication.instructions.md` | Evidence-based judgment and Chinese communication | Active |
 | `instructions/math-formatting.instructions.md` | Cross-project mathematical formatting | Active |
+| `instructions/experiment-comparison.instructions.md` | Task-scoped experiment provenance, input binding, integrity and attribution | Deployed; discovery and runtime behavior require separate evidence |
+| `instructions/experiment-execution.instructions.md` | Task-scoped durable experiment execution, logs and GPU policy | Deployed; discovery and runtime behavior require separate evidence |
+
+Experiment policies are user-level Instructions, not new agents or Skills. The engineering instructions explicitly require reading them for relevant tasks even without file attachments; the research collaboration protocol and Experiment Lead/Runner pass the applicable paths to workers. General execution/GPU policy is maintained in the execution instruction; the collaboration protocol adds framework-wide launch ownership and state integration. Repository protocols supply actual paths, inputs, report schemas and tests. Unrelated code review does not trigger experiments or GPU queries, and reading a policy grants no new authority. See [deployment and conflict checks](docs/research-orchestration-validation.md#2026-11-03-用户级实验指令部署与冲突核对).
 
 ## 4.2 Agents
 
@@ -227,15 +244,29 @@ agents/
 ├── core/
 │   └── critic.agent.md
 └── research/
-    ├── research.agent.md
-    ├── literature-scout.agent.md
-    ├── evidence-auditor.agent.md
-    ├── experiment-designer.agent.md
-    ├── reproducibility-engineer.agent.md
-    └── research-explore.agent.md
+    ├── entry/
+    │   ├── research-orchestrator.agent.md
+    │   ├── autonomous-research-orchestrator.agent.md
+    │   ├── research.agent.md
+    │   └── research-explore.agent.md
+    ├── coordination/
+    │   ├── implementation-lead.agent.md
+    │   ├── experiment-lead.agent.md
+    │   └── debate-moderator.agent.md
+    ├── specialists/
+    │   ├── evidence-auditor.agent.md
+    │   ├── experiment-designer.agent.md
+    │   ├── experiment-runner.agent.md
+    │   ├── literature-scout.agent.md
+    │   ├── reproducibility-engineer.agent.md
+    │   └── research-implementer.agent.md
+    └── inactive/
+        └── method-lead.agent.md
 ```
 
-Grouped roots are registered explicitly through `chat.agentFilesLocations`; implicit recursive discovery is not assumed.
+There are 15 research/core agent files: 14 active, including `agents/core/critic.agent.md`, and one inactive research file. For Research, the user Agent directory registers each of the three active directories separately: `agents/research/entry/`, `agents/research/coordination/`, and `agents/research/specialists/`. The four files in `entry/` are the four research user entries; coordination and specialist files are active allowlist targets, not additional user entries. `agents/research/inactive/` is not registered. Allowlists match exact current agent names, not display labels or fuzzy matches. This describes the current VS Code `chat.agentFilesLocations` arrangement and does not define or imply a CLI registration scheme.
+
+Existing `core/` and `optional/` registration paths are retained unchanged; this migration adds/replaces only the three active Research directory entries and excludes `inactive/`.
 
 ## 4.3 Skills
 
@@ -244,7 +275,8 @@ Grouped roots are registered explicitly through `chat.agentFilesLocations`; impl
 | `systematic-debugging` | Root-cause investigation for unexplained failures | Core; audited PASS WITH PATCH |
 | `verification-before-completion` | Completion evidence gate | Core; accepted |
 | `paper-reading` | Deep analysis of a concrete paper | Core; integration verified |
-| `grill-me` | Intensive questioning and decision pressure-testing | Retained; manual-only |
+| `grill-me` | Intensive questioning and decision pressure-testing | Retained; user- and model-invocable for ambiguous plans, decisions, research ideas, and arguments |
+| `discussion` | Maintain a current proposal through inline comments, revisions, decisions and history cleanup | Added; user- and model-invocable; file maintenance follows task authority |
 | `research-entry` | Literature-grounded exploration of concrete research entry points | Added; user- and model-invocable |
 | `research-question` | Form and check answerable scientific questions | Added; user- and model-invocable |
 | `research-hypothesis` | Candidate explanations, predictions, alternatives, and refutation | Added; user- and model-invocable |
@@ -270,9 +302,9 @@ Hooks remain optional and non-blocking. The current architecture does not depend
 
 # 5. Engineering Layer
 
-**Status:** Architecture frozen at v1.
+**Status:** Native-first for ordinary engineering; research delivery exception defined in §18.
 
-The native Agent owns engineering tasks and implementation. There is no separate Engineering Coordinator.
+The native Agent owns ordinary engineering tasks and implementation. Implementation Lead is a research workstream role, not a general Engineering Coordinator. It coordinates scoped Research Implementer tasks under Research's project objective and inherited authority.
 
 ## 5.1 Engineering Lifecycle
 
@@ -310,7 +342,7 @@ This is not a mandatory full pipeline. Simple work may compress to inspect → e
 | Agent-consumed guidance or customization files need writing or maintenance | `writing-for-agents` |
 | Broad scientific synthesis is the primary task | User explicitly selects Research |
 
-Do not route ordinary engineering work through the Research Coordinator.
+Do not route ordinary engineering work through Research Investigate or either Research orchestration entry.
 
 ## 5.3 Engineering Tool Routing
 
@@ -328,15 +360,21 @@ Do not route ordinary engineering work through the Research Coordinator.
 
 # 6. Scientific Research Layer
 
-**Status:** Architecture frozen at v1; capability routing under operational refinement.
+**Status:** v2 bounded hierarchy; runtime guarantees must be distinguished from configured policy.
 
 ## 6.1 Research Topology
 
-The Research Coordinator owns decomposition and final synthesis. Workers keep distinct epistemic responsibilities.
+The active Research Run or Research Auto owns decomposition, cross-workstream decisions, project-state integration and final acceptance. Research Investigate owns scientific investigation and synthesis; workstream leads own coherent delivery; existing experts keep distinct epistemic responsibilities.
 
 | Role | Primary question | Optimization target |
 |---|---|---|
-| Research Coordinator | How should the full question be decomposed and synthesized? | coherent evidence-based conclusion |
+| Research Run | How should a confirmed batch advance and be accepted? | coherent evidence-based delivery within batch authority |
+| Research Auto | How should a user-stopped continuous research loop advance and be accepted? | evidence-based progress until user stop/check or a genuine execution boundary |
+| Research Investigate | Which scientific findings and judgments are justified? | evidence synthesis and uncertainty handling |
+| Implementation Lead | Does actual code implement the method faithfully? | technical integration and verification |
+| Experiment Lead | What do protocol-consistent experiments establish? | execution coordination and interpretation |
+| Research Implementer | How is this bounded code change implemented and checked? | scoped, faithful implementation |
+| Experiment Runner | What actually ran and produced these artifacts? | process, protocol and result provenance |
 | Literature Scout | What relevant prior work exists? | coverage, recall, bibliographic accuracy |
 | Evidence Auditor | Do the claims follow from the evidence? | skepticism, fairness, confounder detection |
 | Experiment Designer | What test would distinguish competing explanations? | discriminating controls, baselines, metrics |
@@ -346,22 +384,22 @@ The Research Coordinator owns decomposition and final synthesis. Workers keep di
 
 Native Explore remains available for repository facts.
 
-## 6.2 Research Coordinator
+## 6.2 Research Investigate
 
-Recommended frontmatter behavior:
+Current frontmatter behavior:
 
 ```yaml
 user-invocable: true
-disable-model-invocation: true
+disable-model-invocation: false
 ```
 
-Maintained coordinator tool set:
+Maintained coordinator tool set (configured):
 
 ```text
-vscode + read + search + web + agent + todo
+vscode + read + edit + search + web + agent + todo
 ```
 
-The coordinator should remain an orchestrator, not a mega-agent. It delegates deep discovery or specialized analysis and performs only small targeted checks itself.
+The coordinator remains a scientific investigation and synthesis worker, not the end-to-end owner. It may be called by the two orchestration modes and may delegate approved scientific workers, but it does not own implementation, experiment launch or cross-workstream final acceptance. Its `edit` access is for authorized research records only, not source-code implementation. No hard-coded model changes are required.
 
 ## 6.3 Literature Scout
 
@@ -390,7 +428,7 @@ Semantic policy:
 - Cross-check important bibliographic facts across sources when they disagree.
 - Avoid unnecessary parallel API bursts, especially while Semantic Scholar is keyless.
 
-The tool access is already active. The corresponding behavioral routing section in the live Literature Scout file is the next implementation task and is therefore marked **pending hardening**, not complete.
+Tool access and live source-routing/read-only guidance are present. Their presence is configuration evidence, not a claim that every provider route was exercised in this delivery.
 
 ## 6.4 Evidence Auditor
 
@@ -462,9 +500,28 @@ Critic is a shared, read-only reasoning worker. It challenges plans, designs, di
 | One concrete paper | `paper-reading`; add Evidence Auditor for claim audit or Reproducibility Engineer for implementation |
 | New method design | Literature Scout → Experiment Designer → Reproducibility Engineer → Critic when substantive |
 | Existing method evaluation | Evidence Auditor + Experiment Designer; Reproducibility Engineer if implementation feasibility matters |
-| Method-to-code translation | Reproducibility Engineer directly; Native Agent retains implementation ownership |
+| Method-to-code translation | Reproducibility Engineer for requirements; Implementation Lead → Research Implementer for authorized delivery |
+| Intertwined literature–method–implementation–experiment goal | Research Run/Auto → Research Investigate / relevant workstream leads → scoped experts/executors; project-state feedback loop |
+| Authorized experiment execution | Experiment Lead → Experiment Runner; fixed inputs, unique logs and recorded process/exit evidence |
 | Strong competing hypotheses | Evidence Auditor + Experiment Designer → coordinator synthesis → Critic |
 | Simple bibliographic lookup | Direct minimal call; no full worker roster |
+
+## 6.9 Proposal Delivery and Topic Records — Current R2 Rules
+
+For a complete research concept/proposal or substantive revision, actually read [proposal delivery](research-guides/proposal-delivery.md). It owns the scientific argument: rationale and gap → question → optional subquestions → hypotheses or exploration objectives → method → evidence interpretation, with feasibility, risks and a discriminating next step. Local inquiries, audits, implementation tasks and status reports retain their task scope; uncertain content stays uncertain.
+
+| User entry | Required guide-read trigger |
+|---|---|
+| Research Explore | Delivering a complete concept or proposal; remains user-started |
+| Research Investigate | Asked to design a method or deliver a complete research proposal |
+| Research Run | Forming or substantively revising a proposal within its batch scope |
+| Research Auto | Initially forming a proposal, substantively revising it, or responding to a user-requested proposal check; routine updates record deltas |
+
+Before reading or writing project records, locate the actual topic using [project records](research-guides/project-records.md); distinguish its code repository/worktree, record directory and run artifacts. Reuse existing paths such as `research/topic-a/` or a custom notes directory. `research/` is only the fallback for a single-topic project without a convention, not a mandatory root. Create substantive records as needed; do not prebuild empty templates or batch-migrate projects.
+
+The project-record guide owns file responsibilities and splitting: brief is the entry; proposal is the scientific argument; a simple method stays there, while an independently reviewable method may use `method.md` or `methods/<method-id>.md` as its single detailed body. Evidence, protocol, implementation mapping and orchestration state have distinct responsibilities and link to that body. [Orchestration](research-guides/orchestration.md) owns topic-aware task packets, revisions and integration: one active root integrates all shared records of the same topic; leads and leaves return scoped artifacts. Without an execution root, the existing topic-record maintainer integrates concept-stage records. Different topic folders do not remove shared-source write conflicts.
+
+Research Investigate synthesizes method definitions, Research Explore forms them during concept development, and the active root/record maintainer integrates them. Implementation Lead and Experiment Lead receive the method contract for implementation and validation. Method Lead remains inactive; names, tools, registration and the call graph are unchanged. Approval, deployment outcome and effective-guide links are recorded in the [discussion result](docs/discussions/research-proposal-and-record-layout.md); original comments remain in its linked archive.
 
 ---
 
@@ -502,7 +559,7 @@ Use for deep analysis of one concrete paper or a small explicitly named set. It 
 
 ## 7.4 `grill-me`
 
-Retain as a manual-only intensive questioning workflow. It should not auto-trigger during ordinary work.
+Keep as an intensive questioning workflow available through its slash entry and discoverable by the model when a plan, decision, research idea, or argument is genuinely ambiguous or needs pressure-testing. Its description excludes ordinary direct execution, simple fact lookup, and requests that only need an immediate recommendation. Discovery does not grant permission to edit files, execute a plan, or access external services.
 
 ## 7.5 Adapted Engineering and Workflow Skills
 
@@ -518,13 +575,17 @@ All seven adapted Skills provide a user slash entry. `handoff` is manual-only; t
 | `prototype` | Answer one concrete UI, logic, or technical-feasibility question with the smallest useful artifact and honestly scoped observations. | Three branch references; isolate production state and prototype-only UI, use tests/measurements when the question requires them |
 | `wayfinder` | Maintain a destination, decided index, precise open questions and dependencies, unspecified questions, and exclusions when unresolved decisions obscure the route across sessions. | Map and decision templates; settled large implementation belongs in `to-tickets`, not a decision map |
 
-Each package keeps its own `SOURCE.md` and MIT `LICENSE`. Source details and adaptation versions belong in those per-package records; shared update and rollback policy is indexed in `docs/skill-adaptations.md`. No project artifacts are pre-created by installing templates.
+Each adapted Matt Pocock package keeps its own `SOURCE.md` and MIT `LICENSE`; `grill-me` is a separate hiDaDeng-derived package and records its Apache-2.0 repository license and local adaptations in its own `SOURCE.md`. Source details and adaptation versions belong in those per-package records; shared update and rollback policy is indexed in `docs/skill-adaptations.md`. No project artifacts are pre-created by installing templates.
 
 For the 2026-10-27 delivery, the user explicitly waived slash-menu, automatic-trigger, and positive/negative runtime behavior tests. These are recorded as skipped, not passed, and are not release blockers for this delivery. Static structure, references, source, license, and difference checks remain in scope; discovery metadata has already appeared in the current Copilot skill list.
 
 ## 7.6 Auxiliary Skills
 
 `paper-reviewer`, `scifig-scientific-figure`, and `find-skills` extend the environment without changing the core architecture. Their presence does not require coordinators to invoke them automatically.
+
+## 7.7 Document-Based Discussion
+
+Use [discussion](skills/discussion/SKILL.md) when maintaining a discussion document through user comments and multiple revisions, or cleaning up resolved threads. The Skill owns the document lifecycle and includes a reusable template; `grill-me` owns pressure-testing, and existing research records remain authoritative for project facts. No new Agent, global instruction or mandatory interview is added. Skill discovery alone does not authorize file edits or implementation. Static installation checks and untested host behavior are recorded in [skill validation](docs/skill-validation.md).
 
 ---
 
@@ -651,7 +712,7 @@ Use the minimum capability appropriate to the role, even when a broader server t
 Examples:
 
 - Literature Scout may read Zotero but not mutate it.
-- Research Coordinator delegates rather than collecting every server itself.
+- Research Investigate delegates rather than collecting every server itself.
 - Reproducibility Engineer may execute bounded diagnostics but does not own general implementation.
 - Jupyter is not introduced into ordinary projects merely because it is available.
 
@@ -677,7 +738,7 @@ Browser automation is not part of the maintained baseline. Zotero and dedicated 
 - Explore and custom workers execute through the current endpoint;
 - Critic works as a shared custom subagent;
 - Native Code Review is enabled;
-- Research Coordinator can route to multiple specialized workers;
+- Research Investigate can route to multiple specialized workers;
 - registered `paper-reading` routing works;
 - Context7 completed a real current-documentation query;
 - Semantic Scholar server started, exposed tools, and matched a paper by title;
@@ -692,10 +753,11 @@ Browser automation is not part of the maintained baseline. Zotero and dedicated 
 
 | Gap | Impact | Blocking? |
 |---|---|---:|
-| Literature Scout body lacks explicit MCP routing/read-only rules | Can choose the wrong scholarly endpoint or an unsafe Zotero action | Next priority |
+| Live provider routing is configured but not exhaustively exercised | Coverage remains task-specific | No |
 | Semantic Scholar API key not yet issued | Lower rate limits | No |
-| Experiment Designer and Reproducibility Engineer have only concise provider guidance | May underuse or overuse Context7/Hugging Face | No; harden after Scout |
-| Evidence Auditor needs an explicit read-only scholarly-source statement in its live body | Frontmatter exposes more capability than its role needs semantically | No; same hardening pass |
+| Two user-started roots and full autonomous/debate/recovery behavior remain untested | Lead-to-executor traces and a CPU toy run exist; these do not prove the roots | Partial runtime acceptance; see current validation record |
+| Experimental branch exceeded its Agent quota; an Implementer created an unlisted temporary file | Both retained as failures; rules clarified and zero-budget stop retested | Semantic restrictions are not hard enforcement |
+| Automatic model escalation and actual model/cost attribution remain unverified | Explicit Sol/Astra requests returned, but execution identity and billing are unavailable | Model-routing acceptance remains partial |
 | Hooks are not operational dependencies | No hard interception layer | No |
 
 ## 10.3 What Is Not Yet Claimed
@@ -713,17 +775,19 @@ This specification does not claim:
 
 # 11. Freeze and Change Policy
 
-## 11.1 Frozen Architecture
+## 11.1 Maintained Architecture
 
-The following remain frozen unless real tasks demonstrate a repeatable failure:
+The following define the maintained v2 responsibilities:
 
-- Native Agent as engineering owner;
-- Research Coordinator as scientific-synthesis owner;
+- Native Agent as ordinary engineering owner;
+- Research Run and Research Auto as the two user-selected owners for authorized intertwined delivery;
+- Research Investigate as the reusable scientific investigation and synthesis worker;
+- Implementation Lead and Experiment Lead plus two scoped executors under the collaboration protocol;
 - Literature Scout, Evidence Auditor, Experiment Designer, and Reproducibility Engineer as distinct workers;
 - Critic as a shared independent reviewer;
 - `paper-reading` as the concrete-paper deep-analysis workflow;
-- no top-level coordinator nesting by default;
-- no maintained Multi-Agent Debate.
+- no top-level coordinator nesting, no peer-lead recursion and bounded lead-to-leaf nesting;
+- Debate Moderator as a bounded, default-off dispute workflow;
 
 ## 11.2 Evolvable Capability Layer
 
@@ -736,7 +800,7 @@ The following may change with smaller evidence thresholds:
 - targeted fallback rules;
 - extension tool usage guidance.
 
-Capability changes should preserve the frozen ownership model.
+Capability changes should preserve the maintained ownership model unless the user authorizes a responsibility change.
 
 ## 11.3 Change Classification
 
@@ -752,7 +816,7 @@ Capability changes should preserve the frozen ownership model.
 
 # 12. Immediate Next Plan
 
-The next phase is **MCP routing hardening**, not adding more servers.
+The approved R2 delivery in §6.9 and §18 is deployed: shared guides, triggered entrypoint reads, topic records and Research Auto default authority are synchronized. Static checks and independent review are recorded separately from untested user-entry behavior. The N1–N5 list below is the prior v1 operational plan, retained as history rather than an instruction to pause delivery for repeated user smoke tests. Live Scout/Auditor and technical-provider guidance already cover its principal text changes; runtime coverage is reported separately.
 
 ## N1. Literature Scout Routing Patch — Next
 
@@ -802,12 +866,12 @@ After N1–N3:
 
 | Component | Decision |
 |---|---|
-| Separate Engineering Coordinator | Rejected; native Agent owns engineering |
-| Custom Planner/Implementer/Explorer/Reviewer | Rejected until native capability fails materially |
+| General Engineering Coordinator | Not added; ordinary engineering remains native |
+| Scoped Research Implementer | Added in v2 for delegated scientific implementation; not a replacement for all native engineering |
 | Scientific Analyst agent | Rejected; use `paper-reading` |
 | Generic Researcher worker | Rejected; responsibility would be too broad |
 | Maintained Multi-Agent Debate | Rejected for v1 |
-| Agent swarm or deep recursive orchestration | Rejected |
+| Unbounded agent swarm or recursive coordinator chains | Excluded; v2 permits a bounded three-level research topology |
 | Browser automation MCP | Excluded from current baseline |
 | Generic filesystem/memory/database MCP expansion | Excluded without a recurring need |
 | Safety Hooks as a blocking dependency | Deferred |
@@ -817,12 +881,12 @@ After N1–N3:
 
 # 14. Acceptance Criteria
 
-The User Layer v1.1 operational specification is accepted when:
+The current User Layer architecture is accepted within the actual validation scope when:
 
-1. engineering and research have distinct top-level owners;
+1. ordinary engineering and intertwined research have explicit owners;
 2. ordinary engineering remains direct-first;
 3. research workers retain distinct cognitive responsibilities;
-4. top-level coordinators are not nested by default;
+4. no coordinator cycles exist; research leads may invoke only allowed leaves under inherited authority;
 5. Skills represent reusable procedures rather than duplicate roles;
 6. MCP servers are treated as capabilities rather than new owners;
 7. agent frontmatter uses valid canonical server references;
@@ -853,18 +917,21 @@ The User Layer v1.1 operational specification is accepted when:
 | D007 | Treat current custom endpoint subagent execution as supported | Verified |
 | D008 | Reuse `paper-reading`; do not add Scientific Analyst | Accepted and verified |
 | D010 | Research delegation is aggressive but bounded | Accepted |
-| D011 | Remove Multi-Agent Debate from maintained v1 | Accepted |
+| D011 | Remove Multi-Agent Debate from maintained v1 | Historical v1 decision; bounded Moderator added in v2.1 |
 | D012 | Group agent directories and register roots explicitly | Accepted and verified |
 | D013 | Keep Research Coordinator tools focused on coordination | Accepted |
 | D014 | Use phase-aware research orchestration | Accepted and smoke-tested |
 | D015 | Invoke `paper-reading` through the registered Skill mechanism | Accepted and verified |
-| D016 | Freeze Research role architecture at v1 | Accepted |
-| D017 | Share specialist workers across top-level modes without coordinator nesting | Accepted |
+| D016 | Freeze Research role architecture at v1 | Superseded for intertwined research by D031 |
+| D017 | Share specialist workers across top-level modes without coordinator nesting | Retained for top-level owners; bounded workstream nesting added by D031 |
 | D018 | Engineering is direct-first, evidence-driven, and selectively delegated | Accepted |
 | D019 | Retain adapted `systematic-debugging` | PASS WITH PATCH |
 | D020 | Use `verification-before-completion` as completion evidence gate | Accepted |
 | D021 | Keep Hooks optional and non-blocking | Deferred |
-| D023 | Freeze overall role architecture at v1 | Accepted |
+| D023 | Freeze overall role architecture at v1 | Superseded in research scope by D031 |
+| D031 | Use a user-selected orchestration root → investigation/workstream leads → scoped experts/executors for intertwined scientific delivery | Updated 2026-10-30 to two roots and bounded Moderator; configured, runtime evidence separate |
+| D032 | Keep one project-state integration writer, revision-aware task packets and explicit execution provenance | Accepted in collaboration protocol |
+| D033 | Complete coherent framework changes before consolidated Agent-run validation; avoid recurring user smoke-test requests | User instruction 2026-10-29 |
 
 ## Capability Decisions
 
@@ -883,6 +950,46 @@ The User Layer v1.1 operational specification is accepted when:
 ---
 
 # 16. Change Log
+
+Entries below are historical snapshots. Legacy role names in those entries are intentionally preserved; consult the current-name/path migration table at the top for present-day names and locations.
+
+## 2026-11-03 — Approved R2 Document Synchronization
+
+- Synchronized current proposal-delivery triggers, topic-first record navigation, optional single-body method records and same-topic root integration; detailed rules belong to the linked guides.
+- Replaced current Research Auto reapproval gates with topic-scoped default research-loop authority, including evidence-based method, candidate-hypothesis and necessary protocol changes. Other modes retain their boundaries.
+- Preserved historical decisions, comments, architecture and validation evidence. This entry records changes to the two specification/planning documents, not completion of guide/Agent deployment, a new runtime check or a new experiment.
+
+## 2026-11-03 — Research Agent Name and Path Migration
+
+- Recorded the current Research Run, Research Auto, Research Investigate, and Research Explore names and their `entry/` paths.
+- Updated the maintained agent tree and current VS Code registration description to three active Research directories, with `inactive/` excluded; preserved core/optional registration and exact-name allowlists.
+- Historical snapshots and acceptance evidence retain old names and results. No role permissions, behavior, models, or call graph changed; static migration checks remain pending parent-level evidence.
+
+## 2026-11-03 — User-Level Experiment Instructions
+
+- Added task-scoped experiment comparison and execution instructions; generalized project-specific paths, metrics and receipt fields instead of copying them into personal policy.
+- Added explicit engineering and research worker/protocol pointers; consolidated generic GPU/log/check-cadence rules while retaining framework launch ownership.
+- Extended the existing validator to cover user-instruction frontmatter, experiment entry pointers and local links. Static checks do not establish automatic loading in a new session or real execution compliance.
+
+## 2026-11-03 — User-stopped continuous autonomous research
+
+- Changed `Autonomous Research Orchestrator` from finite-batch stopping to a user-stopped continuous research loop: a completed phase, returned branch, temporarily empty ready queue, or exhausted per-round fan-out does not end the loop.
+- Kept research-integrity, user-authority, system/workspace safety, explicit user limits, and host-runtime boundaries. A continuing Agent session is not a cross-window daemon; long-running experiments retain independent process and recovery records.
+
+## v2.1 — 2026-10-30
+
+- Configured two user-started orchestration roots and a bounded Debate Moderator; preserved the investigation and ideation entry responsibilities.
+- Disabled the unused Method Lead candidate without deleting it; migrated the validator to the approved role names, call graph and three-edge Moderator path.
+- Ran static checks, independent review, real Lead-to-executor calls, failure rejection and a fixed-protocol CPU toy run. Recorded quota and temporary-write failures separately from successful run outputs; no blanket runtime pass.
+- Added shared model-selection records; explicit Sol/Astra request acceptance does not establish automatic escalation, actual provider attribution or real billing.
+
+## v2.0 — 2026-10-29
+
+- Replaced the two-level investigation-only Research prompt with two-mode orchestration while preserving Research Investigation Coordinator and Research Ideation Partner responsibilities.
+- Added Research Orchestrator, Autonomous Research Orchestrator and Debate Moderator; retained Implementation Lead, Experiment Lead, Research Implementer and Experiment Runner. The historical Method Lead candidate is retained but disabled.
+- Added one collaboration protocol and project/run templates for authority, dependencies, versions, writing isolation, call allocation and experiment provenance.
+- Aligned engineering/experiment-design ownership and removed research-explore's wildcard delegation to preserve its existing same-conversation role.
+- The user setting already enables nested Local subagents; no settings, model providers, MCP servers or approval policy were changed. Validation evidence belongs in `docs/research-orchestration-validation.md`.
 
 ## 2026-10-28 — Handoff Invocation Policy
 
@@ -950,13 +1057,17 @@ Delivery supplement (local adaptation v2):
 
 # 17. Research Exploration Extension — 2026-10-28
 
+This section records the historical extension. The role and file-location description below is the 2026-10-28 pre-migration snapshot; legacy names and paths remain historical. Current names and paths are listed in the migration table above and §4.2.
+
+For current proposal-delivery triggers and topic-first record layout, use §6.9 and its linked guides; the fallback paths in this snapshot do not override an existing multi-topic layout. Research Explore remains user-started and its implementation/execution boundary is unchanged.
+
 ## Authority and ownership
 
-The user explicitly selected and authorized a personal, cross-project research-exploration setup after a staged requirements interview. This is a scoped extension to the frozen baseline: `research-explore` is a manually selected interactive role for forming research concepts, not a replacement Research Coordinator or a new general-purpose research worker. Existing engineering ownership, scientific-synthesis delegation, worker definitions, and settings are preserved. Do not automatically nest the two user-selected research roles.
+The user explicitly selected and authorized a personal, cross-project research-exploration setup after a staged requirements interview. This is a scoped concept-formation entry: Research Explore (then named `research-explore`) is manually selected, not a replacement for the investigation coordinator or a general-purpose worker. Its stages remain in one conversation, but after user startup it may explicitly delegate approved scientific investigation workers; the separately authorized two-mode execution topology is described in §18. Do not allow other Agents to invoke this user-started entry.
 
 ## Installed components
 
-- `agents/research/research-explore.agent.md`: uses the already registered research agent root; user-invocable, model invocation disabled, no child agents, inherits the selected model. Reads and applies stage methods in the same conversation.
+- `agents/research/entry/research-explore.agent.md`: current file location and name; the original 2026-10-28 snapshot path was `agents/research/research-explore.agent.md`. Research Explore is user-invocable, model invocation disabled, user-started only, and limited to an explicit scientific-worker allowlist. Reads and applies stage methods in the same conversation.
 - `skills/research-entry/SKILL.md`, `skills/research-question/SKILL.md`, `skills/research-hypothesis/SKILL.md`, `skills/research-design/SKILL.md`: independently user-invocable and available for relevant model selection. A standalone request only fills necessary upstream gaps.
 - `research-guides/concepts.md`, `literature-rules.md`, `interaction-rules.md`, `project-records.md`, and `domains/cmtta.md`: explicit file dependencies; ordinary shared Markdown, not an automatically loaded knowledge system. The Git allowlist admits only Markdown in this folder and keeps later secret exclusions active.
 
@@ -975,3 +1086,21 @@ CMTTA is the user's audio-video / multi-modal continual TTA domain. Its guide pr
 The new role exposes reading, search, web, editing, and the already configured scholarly provider namespaces. Zotero and scholarly-provider access remain semantically read-only. No new MCP servers, model choices, approvals, VS Code settings, Hooks, or worker edits are part of this extension.
 
 Deployment verifies the exact files, Copilot-specific frontmatter, references, and installed checksums. Independent content review can assess the instructions; neither that nor static checks alone proves VS Code/Copilot discovery or end-to-end research behavior. Product runtime status must be reported separately from deployment success.
+
+---
+
+# 18. Intertwined Research Collaboration — 2026-10-29
+
+The user's main workload combines literature, method development, implementation and experiments. They explicitly requested completing the framework before consolidated validation, with Agent-run checks rather than recurring manual validation requests.
+
+The executable instructions and task contract live in [the collaboration protocol](research-guides/orchestration.md); this section records architecture, not a second copy of its operational rules. Research Run and Research Auto own the end-to-end task, Research Investigate owns scientific investigation, two workstream leads organize implementation and experiment delivery, and scoped experts/executors form the bounded worker layer. Debate Moderator handles only qualifying disputes. Direct specialist calls remain appropriate for focused questions.
+
+In the 2026-10-30 validation snapshot, the active Local user settings had `chat.subagents.allowInvocationsFromSubagents: true` and one research agent discovery root; that snapshot did not include the later directory migration. Current directory registration is recorded in §4.2. The usual configured path has two delegation edges; the bounded Moderator path can have three: root → investigation coordinator → Moderator → expert. Leaves lack the agent tool. Runtime discovery and nesting require current traces; do not infer compatibility from filenames or editor validation.
+
+Shared records are ordinary files located per topic under the [project-record rules](research-guides/project-records.md), with all shared bodies integrated by one active root for that topic. Code/worktrees, records and run artifacts may have different roots. No daemon, mailbox, same-worker resume, automatic scheduling/merging or monitoring after session exit is added. The protocol defines explicit re-dispatch from recorded state and a reported flattened route if nested calls are unavailable. Call quotas, file ownership and semantic restrictions are instructions, not a sandbox.
+
+Current Research Auto authority follows [orchestration](research-guides/orchestration.md#自主模式默认执行授权): when the user starts continued autonomous work on an explicit topic, the research loop is authorized by default, including investigation, method adoption, candidate-hypothesis revision, implementation, validation, training/evaluation, necessary controls/ablations, project-specific environment preparation and handling identity-verified processes of this task. Do not request approval per action, proposal or round, or block because an old record omitted action-level permission. Task packets record this default source, topic, inputs and concrete scope for workers to inherit; they are traceability records, not approval queues.
+
+Auto decides evidence-based method, candidate-hypothesis and necessary protocol changes within the topic and records their revisions, reasons, affected evidence and validation. User-specified invariants, prohibitions, limits and stop requests take precedence; actual host permissions, credentials and resource availability still apply. Preserve research integrity, existing user changes/data, historical evidence and unrelated or healthy processes. Do not mix incomparable revisions as same-protocol evidence. Pause only the affected action for a real boundary; this default does not include unrelated topics, unsolicited external messages/publication or destructive task-external effects, and does not extend to Research Run, Research Explore, standalone investigation or a discussion/status request. Framework construction itself does not launch real training. Runs retain fixed inputs, unique logs and existing resource rules; new launches never interrupt existing jobs to obtain devices.
+
+Concentrated validation covers the actual agent files, allowed-edge graph, leaf tool restrictions, reachable references, whitespace checks, independent review and an automated nested-call attempt where available. Static configuration, role execution, actual nested dispatch and full research efficacy are separate claims. See [validation evidence](docs/research-orchestration-validation.md) for what was actually run and what remains unverified; no blanket runtime pass follows from file checks.

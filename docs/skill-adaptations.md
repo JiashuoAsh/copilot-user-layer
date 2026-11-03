@@ -2,7 +2,7 @@
 
 - 上游仓库：<https://github.com/mattpocock/skills>
 - 固定来源版本：`59db609eb1e18aaf59b63284d0e52255aff0c63c`
-- 各包版本与来源的主记录位于各自 `SOURCE.md`；`handoff` 当前为本地适配版本 3，其余为版本 2，保留 MIT 许可与每项技能的原始版权声明。
+- Matt Pocock 七包的版本与来源主记录位于各自 `SOURCE.md`：`handoff` 当前为 v4，其余六包为 v3，保留各包 MIT 许可与原始版权声明。`grill-me` 为独立的 hiDaDeng 派生包，许可和来源单独记录。
 - 原始源码缓存：`C:\Users\Ash\.cache\skill-sources\mattpocock-skills\`
 - 适配 staging：`C:\Users\Ash\.cache\skill-adaptations\mattpocock-skills\59db609eb1e18aaf59b63284d0e52255aff0c63c\`
 
@@ -10,11 +10,11 @@
 |---|---|---|
 | `to-tickets` | `skills/engineering/to-tickets` | 纵向可验证切片、真实阻塞边、广域机械变更 expand–migrate–contract；tracker 仅在已配置且获授权时操作 |
 | `code-review` | `skills/engineering/code-review` | Standards/Spec 双轴；包含相关工作区改动；基线不明先询问；无规格仍审查可确认范围；不依赖特定 tracker、Skill API 或必定可用的并行审查 |
-| `writing-for-agents` | `skills/productivity/writing-for-agents` | 保留上下文指针、渐进披露、完成标准和单一事实来源；按本机 Copilot 文档解释调用字段 |
+| `writing-for-agents` | `skills/productivity/writing-for-agents` | 保留完整方法：上下文指针、双重负载、信息层级、共置、完成标准、顺序拆分、引导词、正向措辞与 no-op 剪枝；按本机 Copilot 文档解释调用字段 |
 | `handoff` | `skills/productivity/handoff` | 仅用户显式调用，保留 slash 入口并禁用模型调用；默认聊天输出；避免因上下文长度中断当前工作；写文件遵循项目布局及授权 |
-| `retro` | `skills/engineering/retro` | 证据驱动且默认只建议；检查已有检查；不从偶发失误泛化全局规则 |
-| `prototype` | `skills/engineering/prototype` | UI/逻辑/可行性三分支；是否测试由验证主张决定；不自动提交或推广到生产 |
-| `wayfinder` | `skills/engineering/wayfinder` | 多个互相依赖的未决决策用本地 Markdown 地图；不要求 tracker、标签、认领、推送或未知 Skill API |
+| `retro` | `skills/engineering/retro` | 证据驱动且默认只建议；检查已有检查；缺少 guardrail 也是发现，机械性问题优先自动化；不从偶发失误泛化全局规则 |
+| `prototype` | `skills/engineering/prototype` | 恢复 UI 多方案与可分享 variant 切换、logic 纯模块/单 HTML/free-play/guided walkthrough、结论与 primary source 留存；保留 feasibility、安全和生产隔离边界 |
+| `wayfinder` | `skills/engineering/wayfinder` | 恢复建图/推进模式、四类票据、HITL/AFK、认领/frontier、决策节奏、结案和 Notes；本地 Markdown tracker，不依赖 setup 或未知 Skill API |
 
 ## 逐包主记录
 
@@ -26,7 +26,11 @@
 - [prototype](../skills/prototype/SOURCE.md)
 - [wayfinder](../skills/wayfinder/SOURCE.md)
 
-版本 2 补齐任务模板、审查准则、交接模板、地图模板与决策模板，并接入对应入口；这些独立资源是本地适配补充。`writing-for-agents`、`retro`、`prototype` 的执行方法未改，仅增加逐包来源。许可证原文不变。§7 补齐职责，工程全局指引移除额外重复路由，两份维护文档增加精确 Git 忽略例外。
+## Grill-me
+
+- [grill-me](../skills/grill-me/SKILL.md)：基于 hiDaDeng 多路由技能，保留工程/科研/决策/思辨方法并增加中性提问、可核实事实优先和自动发现；其上游仓库标注 Apache-2.0，但 SKILL frontmatter 曾标 MIT，本地按仓库 LICENSE 记录 Apache-2.0。详见技能 frontmatter 与上游仓库。
+
+七个技能已分别在逐包来源记录中恢复或补齐上游方法；共享索引只概述主要差异。技能版本、验证情况和许可依据以各自 `SOURCE.md` 与许可证文件为准，不将旧快照描述当作当前行为。
 
 ## 维护与回滚
 

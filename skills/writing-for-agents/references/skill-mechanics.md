@@ -1,9 +1,45 @@
-# VS Code Copilot Skill 字段说明
+# Skill mechanics: VS Code Copilot adaptation
 
-适配依据：VS Code Copilot 对 Skill discovery 的调用模型。修改前若平台行为或官方文档已变化，应重新核对。
+This reference adapts the upstream skill mechanics to the VS Code Copilot
+installation in this profile. Read it when creating or editing a skill, choosing
+its invocation policy, splitting one skill into several, or designing a router.
+Do not assume Claude Code's Skill API or invocation semantics apply here.
 
-- `user-invocable: true` 控制面向用户的 slash 入口。
-- `disable-model-invocation: false`（或省略且使用平台默认）允许 Agent 根据描述自动发现；设为 `true` 禁止模型调用，但可保留用户入口。
-- 两项职责不同。按需要可同时开放 slash 与自动发现；自动可发现不意味着每次必触发，也不授予文件写入、执行命令或外部操作权限。
-- `name` 应与技能目录名一致；`description` 是自动发现的主要触发线索，写清任务类型与关键触发场景，避免泛化成“有用时使用”。
-- 具体字段语义和目录位置以当前 VS Code/Copilot 文档及本机实际发现能力为准；不要复制 Claude Code 或其他宿主的假设。
+## Invocation
+
+Copilot exposes two independent decisions in this installation:
+
+- `user-invocable: true` provides a user-facing slash entry.
+- `disable-model-invocation: false` allows model discovery from the skill's
+	`description`; setting it to `true` disables model invocation.
+
+These controls are not the upstream host's single invocation switch. Preserve
+the existing trigger policy unless the task explicitly asks to change it. A
+description is a discovery pointer: when model discovery is enabled, name the
+actual trigger branches in the description. Keep the skill `name` aligned with
+its directory and keep its description focused on when to load it.
+
+An enabled trigger does not guarantee the skill is selected, and discoverability
+does not grant permission to edit files, run commands, access external services,
+or publish. Actual tool availability and user authorization remain separate.
+
+## Splitting by invocation
+
+Split off a skill when a distinct trigger should discover it independently or
+when another skill genuinely needs to refer to it. The new skill adds human
+cognitive load and, when model-discoverable, a permanent discovery surface. Make
+that reach worth its cost. Otherwise keep the method in the current skill or a
+plain reference file with an explicit context pointer.
+
+The upstream distinction between model-invoked and user-invoked skills is a
+design analogy, not a literal Copilot contract. Verify fields and behaviour in
+the actual VS Code environment before relying on a platform-specific claim.
+
+## Router skills
+
+When the human-facing slash skills multiply beyond what a user can remember, a
+router skill can name them and explain when to choose each. In Copilot, a router
+may also be model-discoverable only if its frontmatter explicitly enables that
+policy and its description accurately describes the routing triggers. A router
+must not claim that it can invoke other skills through an unavailable API; it
+can direct the agent or user to an available entry point.

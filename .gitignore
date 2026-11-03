@@ -30,6 +30,13 @@
 # Curated skill maintenance records only (not all docs).
 !/docs/skill-adaptations.md
 !/docs/skill-validation.md
+!/docs/research-orchestration-validation.md
+!/docs/research-agent-collaboration-plan.md
+!/docs/research-agent-collaboration-discussion.md
+!/docs/agent-content-review.md
+!/docs/discussions/research-proposal-and-record-layout.md
+!/docs/discussions/archive/research-proposal-and-record-layout.md
+!/scripts/validate-research-framework.cjs
 
 # ------------------------------------------------------------
 # Curated User Layer

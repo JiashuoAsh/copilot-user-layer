@@ -424,6 +424,11 @@ This distinction is especially important for research prototypes.
 
 Return a concise implementation / reproducibility report.
 
+For a targeted check, return only the answer to the assigned question, evidence
+location, material limitation or uncertainty, and impact on the next action. Use
+the full report below for a complete feasibility or reproduction assessment;
+do not fill unrelated sections merely to match the template.
+
 ## 1. Implementation Interpretation
 
 Translate the scientific method into concrete software components and state.

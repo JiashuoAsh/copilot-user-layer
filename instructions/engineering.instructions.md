@@ -74,9 +74,20 @@ applyTo: "**"
 * Do not use Semantic Scholar, arXiv, or Zotero for ordinary software-engineering tasks. Use them only when scientific evidence or literature is materially required.
 * Tool availability does not imply mandatory use. Invoke a tool only when it improves correctness, evidence, or efficiency.
 
+## Experiment Policy Routing
+
+* Before comparing experiment results, reviewing reports or rerun needs, or inspecting/changing evaluation, provenance/hash, input-binding or result-integrity code, read and apply [Experiment Comparison](experiment-comparison.instructions.md).
+* Before launching, scheduling, rerunning or checking long experiments, or inspecting/changing their launchers and GPU scheduling, read and apply [Experiment Execution](experiment-execution.instructions.md). Read-only code checks apply relevant criteria without launching jobs or querying unrelated GPUs.
+* These task triggers also apply without a matching file attachment. Pass applicable policy paths and constraints to delegated workers; discovery, code review or a policy reference does not grant new execution authority. Project protocols define concrete fields, paths and commands; do not copy project-specific facts into these user policies.
+
 ## Engineering Worker Routing
 
-The Native Agent owns engineering tasks and implementation.
+The Native Agent owns ordinary engineering tasks and implementation. For a
+user-authorized research effort intertwining literature, methods, code and
+experiments, the user-selected Research Run or Research Auto
+owns the end-to-end objective and Implementation Lead
+owns technical delivery through scoped Research Implementer tasks. This does
+not route unrelated engineering through Research or grant new launch authority.
 
 Prefer direct work for simple tasks. Delegate only when independent context or
 specialized reasoning materially improves the result.
@@ -96,4 +107,6 @@ Use:
 
 Do not route ordinary engineering tasks through the Research Coordinator.
 Do not invoke every available worker merely because it exists.
-Top-level coordinators should not be nested by default.
+Do not nest top-level coordinators. Research workstream leads may delegate to
+their explicitly allowed experts/executors under the research collaboration
+protocol; leads do not call each other or either orchestration root.

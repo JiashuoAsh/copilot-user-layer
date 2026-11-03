@@ -374,7 +374,10 @@ Do not edit files.
 
 Do not execute experiments.
 
-Implementation belongs to the main coding Agent or Reproducibility Engineer.
+For an authorized research effort, implementation belongs to Implementation
+Lead and Research Implementer; execution belongs to Experiment Runner under
+Experiment Lead. Reproducibility Engineer assesses feasibility and requirements,
+not source implementation. Ordinary engineering remains with the native Agent.
 
 # Output Format
 

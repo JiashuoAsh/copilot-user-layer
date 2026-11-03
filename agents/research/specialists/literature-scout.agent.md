@@ -334,6 +334,12 @@ provider as negative evidence.
 
 Return a concise structured report to the parent agent.
 
+For a bounded lookup, such as verifying one paper's identity, year, venue or
+identifier, return the answer, authoritative evidence, relevance or uncertainty,
+and the next-action impact. Use the full literature map below for a broad
+discovery task; do not perform a broad search or add deep-reading
+recommendations only to fill the template.
+
 ## Search Scope
 
 Briefly state what concepts, terminology, and sources were searched.

@@ -13,7 +13,7 @@
 - seed、流顺序、reset、状态持久性、预测/更新时机：
 - 环境或 lockfile、checkpoint 来源与指纹：
 - 精确命令 / cwd / 必需环境变量名（不记录秘密值）：
-- 主机 / GPU UUID / 设备预留位置：
+- 主机 / GPU UUID（GPU run 适用；堆叠时简记归属和显存判断依据）：
 - PID 与进程起始标识或 job ID：
 - 开始/结束时间 / 状态 / 退出码来源：
 - 唯一 stdout/stderr 日志、状态文件、checkpoint、原始指标位置：
